@@ -1,18 +1,37 @@
-
-
-
-
 from typing import Dict, List
 
-def sort_by_date(input_list: List[Dict], sorting: bool = True) -> List[Dict]:
-    """
-    возвращает список словарей, отсортированный по дате
-    :param input_list: список словарей
-    :param sorting: необязательный параметр, задающий порядок сортировки (по умолчанию — убывание)
-    :return: list отсортированный по дате список словарей
-    """
-    return sorted(input_list, key=lambda current_dict: current_dict["date"], reverse=sorting)
+def calculate_taxes(prices: list[float], tax_rate: float) -> list[float]:
+    """Функция вычисляет стоимость товаров с учётом налога."""
 
+    if tax_rate < 0:
+        raise ValueError('Неверный налоговый процент')
+
+    taxed_prices = []
+
+    for price in prices:
+        if price <= 0:
+            raise ValueError('Неверная цена')
+        tax = price * tax_rate / 100
+        taxed_prices.append(price + tax)
+
+    return taxed_prices
+
+
+
+
+
+
+#
+#
+# def sort_by_date(input_list: List[Dict], sorting: bool = True) -> List[Dict]:
+#     """
+#     возвращает список словарей, отсортированный по дате
+#     :param input_list: список словарей
+#     :param sorting: необязательный параметр, задающий порядок сортировки (по умолчанию — убывание)
+#     :return: list отсортированный по дате список словарей
+#     """
+#     return sorted(input_list, key=lambda current_dict: current_dict["date"], reverse=sorting)
+#
 
 # lists = [
 #     {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
