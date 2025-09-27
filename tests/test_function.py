@@ -45,3 +45,23 @@ def test_calculate_tax_error_prices_less_0():
 def test_calculate_tax_error_prices_more_100():
     with pytest.raises(ValueError):
         calculate_tax(100, 1000)
+
+
+
+@pytest.mark.parametrize('round_digits, expected', [(0, 99),
+                                                    (1, 99.4),
+                                                    (2, 99.42),
+                                                    (3, 99.425),])
+
+def test_calculate_tax_round_digits(round_digits, expected):
+    assert  calculate_tax(100, 2.5, discount=3, round_digits=round_digits) == expected
+
+
+@pytest.mark.parametrize('price, tax_rate, discount, round_digits', [('100', 0, 1, 110),
+                                                                     (100, '0', 1, 110),
+                                                                     (100, 0, '1', 110),
+                                                                     (100, 0, 1, '110'),])
+
+def test_calculate_tax_wrong_type(price, tax_rate, discount, round_digits):
+    with pytest.raises(TypeError):
+        calculate_tax(price, tax_rate, discount= discount, round_digits=round_digits)
